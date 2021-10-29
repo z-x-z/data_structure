@@ -1,0 +1,30 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "hello",
+          "type": "shell",
+          "command": "g++",
+          "args": [
+            "-g",
+            // 启用c11
+            "-Wall",
+            "-std=c++17",
+            "${file}",
+            "-o",
+            // 设置输出文件路径
+            "${workspaceFolder}/out/task.out",
+            // 设置项目头文件引用路径
+            "-I",
+            "${workspaceFolder}",
+          ],
+          "group":
+          {
+            "kind": "build",
+            "isDefault": true
+          }
+      }
+  ]
+}
