@@ -1,13 +1,14 @@
 //
 // Created by zxz on 2020/4/10.
 //
+#ifndef DATASTRUCTURE_BINOMIALQUEUE_H
+#define DATASTRUCTURE_BINOMIALQUEUE_H
+
 #include<iostream>
 #include<vector>
 #include<cmath>
 using namespace std;
 
-#ifndef DATASTRUCTURE_BINOMIALQUEUE_H
-#define DATASTRUCTURE_BINOMIALQUEUE_H
 
 template<typename Comparable>
 class BinomialQueue
@@ -16,10 +17,11 @@ public:
     BinomialQueue();
     BinomialQueue(const Comparable& comparable);
     BinomialQueue(const BinomialQueue& rhs);
+    BinomialQueue(const vector<Comparable>& comparables);
     ~BinomialQueue();
 
     bool isEmpty() const;
-    const Comparable& findMin() const;
+    const Comparable& getMin() const;
     int size() const;
 
     void insert(const Comparable& item);
@@ -79,22 +81,27 @@ private:
 
 // public
 template<typename Comparable>
-BinomialQueue<Comparable>::BinomialQueue()
-{
+BinomialQueue<Comparable>::BinomialQueue(){
     currentSize = 0;
 }
 
 template<typename Comparable>
 BinomialQueue<Comparable>::BinomialQueue(const BinomialQueue& rhs)
-:binomialForest(rhs.binomialForest.size()), currentSize(rhs.currentSize)
-{
+:binomialForest(rhs.binomialForest.size()), currentSize(rhs.currentSize){
     for(int i = 0; i < binomialForest.size(); ++i)
         binomialForest[i] = cloneTree(rhs.binomialForest[i]);
 }
 
 template<typename Comparable>
-BinomialQueue<Comparable>::BinomialQueue(const Comparable& comparable)
-{
+BinomialQueue<Comparable>::BinomialQueue(const vector<Comparable>& comparables){
+    *this = BinomialQueue();
+    for (int i = 0; i < comparables.size(); i++){
+        this->insert(comparables[i]);
+    }
+}
+
+template<typename Comparable>
+BinomialQueue<Comparable>::BinomialQueue(const Comparable& comparable){
     binomialForest.push_back(new BinomialNode(comparable));
     currentSize = 1;
 }
@@ -112,7 +119,7 @@ BinomialQueue<Comparable>::~BinomialQueue()
 }
 
 template<typename Comparable>
-const Comparable& BinomialQueue<Comparable>::findMin() const
+const Comparable& BinomialQueue<Comparable>::getMin() const
 {
     return binomialForest[findMinIndex()]->element;
 }
@@ -222,7 +229,7 @@ void BinomialQueue<Comparable>::merge(BinomialQueue& rhs)
 template<typename Comparable>
 BinomialQueue<Comparable>& BinomialQueue<Comparable>::operator=(const BinomialQueue& rhs)
 {
-    if(this!=rhs)
+    if(this!=&rhs)
     {
         makeEmpty();
         for(auto binomialTree: rhs.binomialForest)

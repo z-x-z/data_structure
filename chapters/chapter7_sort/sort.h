@@ -15,7 +15,6 @@ typedef void (*swap_fun) (element_type*, size_t, size_t);
 typedef int (*cmp_fun) (element_type, element_type);
 
 
-void test_sort(sort_fun sort, element_type* arr, size_t len);
 
 void bubble_sort(element_type* arr, size_t len);
 void select_sort(element_type* arr, size_t len);
@@ -26,4 +25,6 @@ void quick_sort(element_type* arr, size_t len);
 void heap_sort(element_type* arr, size_t len);
 void bucket_sort(element_type* arr, size_t len);
 
+void test_sort(sort_fun sort, element_type* arr, size_t len);
+int is_sorted(element_type* arr, size_t len);
 #endif

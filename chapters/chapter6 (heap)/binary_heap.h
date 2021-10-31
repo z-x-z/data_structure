@@ -65,7 +65,7 @@ public:
         build();
     }
 
-    bool empty()
+    bool isEmpty()
     {
         return size==0;
     }

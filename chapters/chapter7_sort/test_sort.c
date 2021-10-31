@@ -17,5 +17,6 @@ int main() {
         for (size_t i = 0; i < arr_len; i++) {
                 arr[i] = rand() % 1000;
         }
-        test_sort(merge_sort, arr, arr_len);
+        test_sort(quick_sort, arr, arr_len);
+        
 }
